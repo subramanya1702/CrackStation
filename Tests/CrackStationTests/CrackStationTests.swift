@@ -1,33 +1,54 @@
 import XCTest
 import CrackStation
+import CryptoKit
 
 final class CrackStationTests: XCTestCase {
     
     func testCrackStationWithASingleCharacter() throws {
         let crackStation = CrackStation()
-        let actualPassword = try crackStation.crack(password: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
+        let actualPassword = "a"
+        let shaHash = encrypt(actualPassword)
+        
+        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
-        XCTAssert("a".elementsEqual(actualPassword!))
+        XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
     
     func testCrackStationWithDoubleCharacters() throws {
         let crackStation = CrackStation()
-        let actualPassword = try crackStation.crack(password: "4dab54ebf169cc7b106a91d8118b984b77844919")
+        let actualPassword = "g7"
+        let shaHash = encrypt(actualPassword)
+        
+        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
-        XCTAssert("g7".elementsEqual(actualPassword!))
+        XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
     
     func testCrackStationWithTripleCharacters() throws {
         let crackStation = CrackStation()
-        let actualPassword = try crackStation.crack(password: "4d3ef0bbfc1daba1a476e2734d9776b811b812ef")
+        let actualPassword = "abf"
+        let shaHash = encrypt(actualPassword)
+        
+        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
-        XCTAssert("abf".elementsEqual(actualPassword!))
+        XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
     
     func testCrackStationWithTripleCharactersAndSymbols() throws {
         let crackStation = CrackStation()
-        let actualPassword = try crackStation.crack(password: "bf6e63e9f247d15fa7892fff4291da7c3a34f1c4")
+        let actualPassword = "zx?"
+        let shaHash = encrypt(actualPassword)
+        
+        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
-        XCTAssert("zx?".elementsEqual(actualPassword!))
+        XCTAssert(actualPassword.elementsEqual(expectedPassword!))
+    }
+    
+    private func encrypt(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
     }
 }
