@@ -9,7 +9,7 @@ final class CrackStationTests: XCTestCase {
         let actualPassword = "a"
         let shaHash = encrypt(actualPassword)
         
-        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
+        let expectedPassword = crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
         XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
@@ -19,7 +19,7 @@ final class CrackStationTests: XCTestCase {
         let actualPassword = "g7"
         let shaHash = encrypt(actualPassword)
         
-        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
+        let expectedPassword = crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
         XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
@@ -29,7 +29,7 @@ final class CrackStationTests: XCTestCase {
         let actualPassword = "abf"
         let shaHash = encrypt(actualPassword)
         
-        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
+        let expectedPassword = crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
         XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
@@ -39,7 +39,7 @@ final class CrackStationTests: XCTestCase {
         let actualPassword = "zx?"
         let shaHash = encrypt(actualPassword)
         
-        let expectedPassword = try crackStation.decrypt(shaHash: shaHash)
+        let expectedPassword = crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
         XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }

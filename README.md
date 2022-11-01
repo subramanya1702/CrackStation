@@ -1,7 +1,7 @@
 # CrackStation
 ![Build Status](https://github.com/subramanya1702/CrackStation/actions/workflows/swift.yml/badge.svg)
 
-version: 1.0.0
+version: 1.0.1
 
 ## What is CrackStation?
 
