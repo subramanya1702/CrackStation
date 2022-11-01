@@ -7,11 +7,16 @@ public class CrackStation: Decrypter {
     public required init() {
     }
     
-    public func decrypt(shaHash: String) throws -> String? {
-        try loadDictionaryFromDisk()
+    public func decrypt(shaHash: String) -> String? {
         
-        if sha1HashDict.isEmpty {
-            throw CrackStationError.dictionaryEmptyError("The Dictionary Passwords file is empty. Please execute the HashGenerator jar to populate the hash file")
+        do {
+            try loadDictionaryFromDisk()
+            
+            if sha1HashDict.isEmpty {
+                print("The Dictionary Passwords file is empty. Please execute the HashGenerator jar to populate the hash file")
+            }
+        } catch {
+            print("Error while loading the dictionary from the hash files")
         }
         
         if sha1HashDict[shaHash] != nil {
@@ -36,9 +41,5 @@ public class CrackStation: Decrypter {
         if let dict: Dictionary = jsonResult as? Dictionary<String, String> {
             sha1HashDict = dict
         }
-    }
-    
-    private enum CrackStationError: Error {
-        case dictionaryEmptyError(String)
     }
 }
