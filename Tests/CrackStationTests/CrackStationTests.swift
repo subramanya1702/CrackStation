@@ -4,18 +4,34 @@ import CryptoKit
 
 final class CrackStationTests: XCTestCase {
     
+    let crackStation = CrackStation()
+    
     func testCrackStationWithASingleCharacter() throws {
-        let crackStation = CrackStation()
         let actualPassword = "a"
         let shaHash = encrypt(actualPassword)
-        
+
         let expectedPassword = crackStation.decrypt(shaHash: shaHash)
         XCTAssertNotNil(actualPassword)
         XCTAssert(actualPassword.elementsEqual(expectedPassword!))
     }
     
+    func testCrackStationWithLoad() throws {
+        for a in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
+            for b in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
+                // Given
+                let password = String("\(a)\(b)")
+                let shaHash = encrypt(password)
+                
+                // When
+                let crackedPassword = crackStation.decrypt(shaHash: shaHash)
+                
+                // Then
+                XCTAssertEqual(crackedPassword, password)
+            }
+        }
+    }
+    
     func testCrackStationWithDoubleCharacters() throws {
-        let crackStation = CrackStation()
         let actualPassword = "g7"
         let shaHash = encrypt(actualPassword)
         
@@ -25,7 +41,6 @@ final class CrackStationTests: XCTestCase {
     }
     
     func testCrackStationWithTripleCharacters() throws {
-        let crackStation = CrackStation()
         let actualPassword = "abf"
         let shaHash = encrypt(actualPassword)
         
@@ -35,7 +50,6 @@ final class CrackStationTests: XCTestCase {
     }
     
     func testCrackStationWithTripleCharactersAndSymbols() throws {
-        let crackStation = CrackStation()
         let actualPassword = "zx?"
         let shaHash = encrypt(actualPassword)
         
