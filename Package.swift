@@ -21,8 +21,7 @@ let package = Package(
             name: "CrackStation",
             dependencies: [],
             resources: [
-                .process("DictionaryPasswordsSHA1.json"),
-                .process("DictionaryPasswordsSHA256.json")
+                .process("DictionaryPasswordsSHA1.json")
             ]),
         .testTarget(
             name: "CrackStationTests",
